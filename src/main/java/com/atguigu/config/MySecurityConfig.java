@@ -30,8 +30,12 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/level2/**").hasRole("VIP2")
                 .antMatchers("/level3/**").hasRole("VIP3");
         //开启自动配置登录功能
-        http.formLogin();
-        http.logout();
+        http.formLogin().usernameParameter("user").passwordParameter("pwd")
+                .loginPage("/userlogin");
+        //开启自动配置注销功能
+        http.logout().logoutSuccessUrl("/");//注销成功后返回主页
+        //开启记住我功能
+        http.rememberMe().rememberMeParameter("remeber");
 
     }
 }
